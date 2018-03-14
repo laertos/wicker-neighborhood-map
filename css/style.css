@@ -1,23 +1,22 @@
 
 
 h2 {
-	font-family: "Lato", sans-serif;
+	font-family: "Encode Sans Expanded", sans-serif;
+	font-weight: 300;
 	display: inline-block;
   	text-align: center;
   	position: absolute;
   	margin: 10px;
   	color: white;
-  	font-family:
 }
 
-.row {
-	background: indigo;
+.header {
+	background: #37055b;
 }
 
 #map {
   min-width:100%;
-  background-color: yellow;
-  height: 100vh;
+  height: 82vh;
 }
 
 #toggle {
@@ -49,14 +48,15 @@ h2 {
 }
 
 #locations{
-  background-color: indigo;
+  background-color: #37055b;
   color: white;
-  border: 1px solid indigo;
+  border: 1px solid #37055b;
   width: 280px;
-  height: 240px;
+  height: 79vh;
   padding: 10px;
   border-radius: 1px;
-  font-family: "Lato", sans-serif;
+  font-family: "Encode Sans Expanded", sans-serif;
+  font-weight: 100;
   line-height: 100px;
   text-align: center;
   margin: ;
@@ -65,8 +65,33 @@ h2 {
   z-index: 1;
 }
 
+.footer {
+	background: #37055b;
 
+}
 
+h5 {
+	font-family: "Encode Sans Expanded", sans-serif;
+	font-weight: 300;
+	color: white;
+	margin: 10px;
+}
+
+#search-bar {
+	width: 80%;
+	color: white;
+	background-color: #37055b;
+	border: 2px solid white;
+	height: 4vh;
+}
+
+::-webkit-input-placeholder {
+	color: white;
+	font-size: 18px;
+	font-family: "Encode Sans Expanded", sans-serif;
+	font-weight: 100;
+	padding: 3px 0 0 3px ;
+}
 
 
 
