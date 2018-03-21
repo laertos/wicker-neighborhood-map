@@ -47,9 +47,10 @@ function mapError() {
   	//this is what goes on the infoWindow upon clicking on the marker
   	//or location name on sidebar
 function popuateIW(marker, infowindow) {
+	var self = this;	
 		if (infowindow.marker != marker) {
 			infowindow.marker = marker;
-			infowindow.setContent('');
+			infowindow.setContent(self.IWcontent);
 
 	//4square API data
 	var	clientId = "NMHLYWGLLNXPUVP1AA4GTGVCWL51AVULQYXW5RSSCJJ5CHZQ";
@@ -62,19 +63,38 @@ function popuateIW(marker, infowindow) {
 		+ '&client_id=' + clientId
 		+ '&client_secret=' + clientSecret
 		+ '&v=20170801' + '&query=' + marker.title;
-		
+
 	//4square API	
-	$.getJSON(foursquareURL).done(function(marker) {	
-			infowindow.open(map, marker);
-	//makes sure marker property is cleared when infowindow is closed
-			infowindow.addListener('closeclick', function() {
-			infowindow.marker = null;	
-			});		
+	$.getJSON(foursquareURL).done(function(marker) {
+		var data = marker.response.venues[0];
+		self.name = data.name;
+		self.street = data.location.formattedAddress[0];
+		self.city = data.location.formattedAddress[1];
+		self.state = data.location.formattedAddress[2];
+		self.phone = data.contact.formattedPhone ? data.contact.formattedPhone : "Phone Number not found";
+		self.website = data.url ? data.url : "Website not found";
+
+		self.IWcontent = 
+		'<div>' + 
+		'<h6 class="IWtext">' + self.name + '</h6>';
+		'<p class="IWtext">' + self.street + '</p>';
+		'<p class="IWtext">' + self.city + '</p>';
+		'<p class="IWtext">' + self.state + '</p>';
+		'<p class="IWtext">' + self.phone + '</p>';
+		'<p class="IWtext">' + self.website + '</p>'; 
+		+ '</div>' 
+		
 		}).fail(function() {
 			alert("Foursquare is dead, Jim!");
 		});
 
-	}
+		infowindow.open(map, marker);
+	//makes sure marker property is cleared when infowindow is closed
+		infowindow.addListener('closeclick', function() {
+		infowindow.marker = null;	
+			});
+	
+};	
 
   this.searchedLocation = ko.observable('');
   this.searchList = ko.computed(function() {
