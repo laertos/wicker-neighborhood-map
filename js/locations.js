@@ -1,89 +1,62 @@
 var locations = [
 {
 	title: "Small Cheval",
-	location: {lat: 41.9141613802915, lng: -87.68013926970849},
-	category: "Burgers"
+	location: {lat: 41.9141613802915, lng: -87.68013926970849}
 },
 
 {
 	title: "Big Star Taco",
-	location: {lat: 41.9091585, lng: -87.67712519999999},
-	category: "Tacos"
+	location: {lat: 41.9091585, lng: -87.67712519999999}
 },
 
 {
 	title: "Violet Hour",
-	location: {lat: 41.9090357, lng: -87.67776069999999},
-	category: "Cocktail Bar" 
+	location: {lat: 41.9090357, lng: -87.67776069999999}
 },
 
 {
 	title: "Parlor Pizza", 
-	location: {lat: 41.9035235, lng: -87.6734467},
-	category: "Pizza"
+	location: {lat: 41.9035235, lng: -87.6734467}
 },
 
 {
 	title: "Emporium Arcade bar",
-	location: {lat: 41.9064557, lng: -87.671848},
-	category: "Bar"
+	location: {lat: 41.9064557, lng: -87.671848}
 },
 
 {
 	title: "The Den Theatre",
-	location: {lat: 41.9061256, lng: -87.67053820000001},
-	category: "Entertainment"
+	location: {lat: 41.9061256, lng: -87.67053820000001}
 },
 
 {
 	title: "The Wormhole",
-	location: {lat: 41.9083338, lng: -87.67466},
-	category: "Coffee Shop"
+	location: {lat: 41.9083338, lng: -87.67466}
 },
 {
 	title: "Myopic Books", 
-	location: {lat: 41.9097746, lng: -87.6769326},
-	category: "Bookstore"
+	location: {lat: 41.9097746, lng: -87.6769326}
 },
 
 {
 	title: "5411 Empanadas",
-	location: {lat: 41.9103042, lng: -87.679283},
-	category: "Argentinian Food"
+	location: {lat: 41.9103042, lng: -87.679283}
 },
 
 {
 	title: "Sushi Taku",
-	location: {lat: 41.9033716, lng: -87.67511090000001},
-	category: "Sushi"
+	location: {lat: 41.9033716, lng: -87.67511090000001}
 },
 
 {
 	title: "Reckless Records",
-	location: {lat: 41.9070939, lng: -87.6717903},
-	category: "Music Store"
+	location: {lat: 41.9070939, lng: -87.6717903}
 },
 ]
 
 
 /*
 
- this.searchedLocation = ko.observable('');
-  this.searchList = ko.computed(function() {
-  	var match = [];
-  	for (var i = 0; i <= this.markers.length; i++) {
-  		var locationsList = this.markers[i];
-  		if (locationsList.title.toLowerCase().includes(this.searchedLocation.toLowerCase())) {
-  			match.push(locationsList);
-  			this.markers[i].setVisible(true);
-  		} else {
-  			this.markers[i].setVisible(false);
-  		}
-  	}
-  	return match;
-  }, this);
-
-  
 	var styles = [
 	{
 		featureType: 'water',

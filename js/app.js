@@ -5,10 +5,10 @@ var markers = [];
 
 
 function ViewModel() {
-	
+	var self = this;
 	//implementation of the map
 function initMap() {
-	var self = this;
+	//var self = this;
 	// Create the map centered in desired location and zoom
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: {lat:41.908803, lng:-87.679598},
@@ -47,7 +47,7 @@ function mapError() {
   	//this is what goes on the infoWindow upon clicking on the marker
   	//or location name on sidebar
 function popuateIW(marker, infowindow) {
-	var self = this;	
+	//var self = this;	
 		if (infowindow.marker != marker) {
 			infowindow.marker = marker;
 			infowindow.setContent(self.IWcontent);
@@ -82,7 +82,7 @@ function popuateIW(marker, infowindow) {
 		'<p class="IWtext">' + self.state + '</p>';
 		'<p class="IWtext">' + self.phone + '</p>';
 		'<p class="IWtext">' + self.website + '</p>'; 
-		+ '</div>' 
+		+ '</div>'; 
 		
 		}).fail(function() {
 			alert("Foursquare is dead, Jim!");
@@ -93,25 +93,27 @@ function popuateIW(marker, infowindow) {
 		infowindow.addListener('closeclick', function() {
 		infowindow.marker = null;	
 			});
-	
+	}
 };	
 
-  this.searchedLocation = ko.observable('');
-  this.searchList = ko.computed(function() {
+ 
+  var searchList = ko.computed(function() {
+  	//var self = this;
+  	this.searchedLocation = ko.observable('');
   	var match = [];
   	for (var i = 0; i <= this.markers.length; i++) {
   		var locationsList = this.markers[i];
   		if (locationsList.title.toLowerCase().includes(this.searchedLocation().toLowerCase())) {
   			match.push(locationsList);
-  			this.markers[i].setVisible(true);
+  			this.locationsList.style.visibility = 'visible';
   		} else {
-  			this.markers[i].setVisible(false);
+  			this.locationsList.style.visibility = 'hidden';
   		}
   	}
   	return match;
   }, this);
 };
-}
+
 
 function runMyApp() {
     ko.applyBindings(new ViewModel());
