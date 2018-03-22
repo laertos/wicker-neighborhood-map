@@ -46,7 +46,7 @@ function mapError() {
 
   	//this is what goes on the infoWindow upon clicking on the marker
   	//or location name on sidebar
-function popuateIW(marker, infowindow) {
+function populateIW(marker, infowindow) {
 	//var self = this;	
 		if (infowindow.marker != marker) {
 			infowindow.marker = marker;
