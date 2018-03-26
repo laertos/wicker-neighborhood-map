@@ -2,10 +2,11 @@
 var map;
 var infowindow;
 var markers = [];
-
+var clientId;
+var clientSecret;
 
 function ViewModel() {
-	var self = this;
+	//var self = this;
 	//implementation of the map
 function initMap() {
 	//var self = this;
@@ -21,23 +22,24 @@ function initMap() {
 
 	for (var i = 0; i <= locations.length; i++) {
 	//setting the position and title based on location.js file	
-		this.position = locations[i].location;
-		this.title = locations[i].title;
+		var position = locations[i].location;
+		var title = locations[i].title;
 	//creating marker	
-		this.marker = new google.maps.Marker({
+		var marker = new google.maps.Marker({
 		map: map,
-		position: this.position,
-		title: this.title,
+		position: position,
+		title: title,
 		animation: google.maps.Animation.DROP,
 		});
 	//push marker to array
-		this.markers.push(this.marker);
+		markers.push(marker);
 	//create onClick even to open infoWindow for each marker
-		this.marker.addListener('click', function() {
+		marker.addListener('click', function() {
 		populateIW(this, infowindow);
 	});	
 	} 
   };
+ 
 initMap();
 
 function mapError() {
@@ -47,25 +49,26 @@ function mapError() {
   	//this is what goes on the infoWindow upon clicking on the marker
   	//or location name on sidebar
 function populateIW(marker, infowindow) {
-	//var self = this;	
-		if (infowindow.marker != marker) {
-			infowindow.marker = marker;
-			infowindow.setContent(self.IWcontent);
+	var self = this;	
+	if (infowindow.marker != marker) {
+		infowindow.marker = marker;
+		//infowindow.setContent(self.IWcontent);
 
 	//4square API data
-	var	clientId = "NMHLYWGLLNXPUVP1AA4GTGVCWL51AVULQYXW5RSSCJJ5CHZQ";
-	var	clientSecret = "L2WDZZINOWDJVIAYWTE2YIM1SB1VINNTWZP3EIM4SIAWPOOF";
+	clientId = "NMHLYWGLLNXPUVP1AA4GTGVCWL51AVULQYXW5RSSCJJ5CHZQ";
+	clientSecret = "L2WDZZINOWDJVIAYWTE2YIM1SB1VINNTWZP3EIM4SIAWPOOF";
 
 	//4square URL
 	var	foursquareURL = 'https://api.foursquare.com/v2/venues/search?ll=' 
-		+ this.location.lat + ','
-		+ this.location.lng + ','
+		+ 41.908803 + ','
+		+ -87.679598 + ','
 		+ '&client_id=' + clientId
 		+ '&client_secret=' + clientSecret
-		+ '&v=20170801' + '&query=' + marker.title;
+		+ '&v=20170801' + '&query=' + this.title;
 
 	//4square API	
 	$.getJSON(foursquareURL).done(function(marker) {
+		
 		var data = marker.response.venues[0];
 		self.name = data.name;
 		self.street = data.location.formattedAddress[0];
@@ -76,13 +79,14 @@ function populateIW(marker, infowindow) {
 
 		self.IWcontent = 
 		'<div>' + 
-		'<h6 class="IWtext">' + self.name + '</h6>';
+		'<h6 class="IWtext">' + this.title + '</h6>';
 		'<p class="IWtext">' + self.street + '</p>';
 		'<p class="IWtext">' + self.city + '</p>';
 		'<p class="IWtext">' + self.state + '</p>';
 		'<p class="IWtext">' + self.phone + '</p>';
 		'<p class="IWtext">' + self.website + '</p>'; 
 		+ '</div>'; 
+		infowindow.setContent(self.IWcontent);
 		
 		}).fail(function() {
 			alert("Foursquare is dead, Jim!");
@@ -97,28 +101,27 @@ function populateIW(marker, infowindow) {
 };	
 
  
-  var searchList = ko.computed(function() {
+var searchList = ko.computed(function() {
   	//var self = this;
-  	this.searchedLocation = ko.observable('');
+  	var searchedLocation = ko.observable('');
   	var match = [];
-  	for (var i = 0; i <= this.markers.length; i++) {
-  		var locationsList = this.markers[i];
-  		if (locationsList.title.toLowerCase().includes(this.searchedLocation().toLowerCase())) {
+  	for (var i = 0; i <= markers.length; i++) {
+  		var locationsList = markers[i];
+  		if (locationsList.title.toLowerCase().includes(searchedLocation().toLowerCase())) {
   			match.push(locationsList);
-  			this.locationsList.style.visibility = 'visible';
+  			match.style.visibility = 'visible';
   		} else {
-  			this.locationsList.style.visibility = 'hidden';
+  			match.style.visibility = 'hidden';
   		}
   	}
   	return match;
   }, this);
-};
 
+};
 
 function runMyApp() {
     ko.applyBindings(new ViewModel());
 }
-
 
 
 
