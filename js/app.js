@@ -20,7 +20,7 @@ function initMap() {
 
 	infowindow = new google.maps.InfoWindow();
 
-	for (var i = 0; i <= locations.length; i++) {
+	for (var i = 0; i < locations.length; i++) {
 	//setting the position and title based on location.js file	
 		var position = locations[i].location;
 		var title = locations[i].title;
@@ -36,6 +36,7 @@ function initMap() {
 	//create onClick even to open infoWindow for each marker
 		marker.addListener('click', function() {
 		populateIW(this, infowindow);
+		console.log(locations[i]);
 	});	
 	} 
   };
@@ -61,11 +62,12 @@ function populateIW(marker, infowindow) {
 
 	//4square URL
 	var	foursquareURL = 'https://api.foursquare.com/v2/venues/search?ll=' 
-		+ 41.908803 + ','
-		+ -87.679598 + ','
-		+ '&client_id=' + clientId
-		+ '&client_secret=' + clientSecret
-		+ '&v=20170801' + '&query=' + marker.title;
+	+ 41.908803 + ',' 
+	+ -87.679598 + ',' 
+	+ '&client_id=' + clientId 
+	+ '&client_secret=' + clientSecret 
+	+ '&v=20170801' 
+	+ '&query=' + marker.title;
 
 	//4square API	
 	$.getJSON(foursquareURL).done(function(marker) {
@@ -80,13 +82,13 @@ function populateIW(marker, infowindow) {
 
 		var IWcontent = 
 		'<div>' + 
-		'<h6 class="IWtext">' + name + '</h6>';
-		'<p class="IWtext">' + street + '</p>';
-		'<p class="IWtext">' + city + '</p>';
-		'<p class="IWtext">' + state + '</p>';
-		'<p class="IWtext">' + phone + '</p>';
-		'<p class="IWtext">' + website + '</p>'; 
-		+ '</div>'; 
+		'<h4 class="IWtext">' + name + '</h4>' +
+		'<p class="IWtext">' + street + '</p>' +
+		//'<p class="IWtext">' + city + '</p>' +
+		//'<p class="IWtext">' + state + '</p>' +
+		'<p class="IWtext">' + phone + '</p>' +
+		'<p class="IWtext">' + website + '</p>' + 
+		'</div>'; 
 		infowindow.setContent(IWcontent);
 		
 		}).fail(function() {
@@ -103,12 +105,12 @@ function populateIW(marker, infowindow) {
 
  
 var searchList = ko.computed(function() {
-  	var self = this;
-  	this.searchedLocation = ko.observable('');
+  	//var self = this;
+  	var searchedLocation = ko.observable('');
   	var match = [];
   	for (var i = 0; i <= markers.length; i++) {
   		var locationsList = markers[i];
-  		if (locationsList.title.toLowerCase().includes(this.searchedLocation().toLowerCase())) {
+  		if (locationsList.title.toLowerCase().includes(searchedLocation().toLowerCase())) {
   			match.push(locationsList);
   			match.style.visibility = 'visible';
   		} else {
