@@ -11,7 +11,7 @@ h2 {
 }
 
 .header {
-	background: #37055b;
+	background: rgb(0, 17, 61);
 }
 
 #map {
@@ -48,9 +48,9 @@ h2 {
 }
 
 #locations{
-  background-color: #37055b;
+  background-color: rgb(0, 17, 61);
   color: white;
-  border: 1px solid #37055b;
+  border: 1px solid rgb(0, 17, 61);
   width: 280px;
   height: 79vh;
   padding: 10px;
@@ -66,7 +66,7 @@ h2 {
 }
 
 .footer {
-	background: #37055b;
+	background: rgb(0, 17, 61);
 
 }
 
@@ -80,9 +80,9 @@ h5 {
 #search-bar {
 	width: 80%;
 	color: white;
-	background-color: #37055b;
+	background-color: rgb(0, 17, 61);
 	border: 2px solid white;
-	height: 4vh;
+	height: 35px;
 }
 
 ::-webkit-input-placeholder {
@@ -100,6 +100,8 @@ input[type=text] {
 	font-weight: 100;
 	padding: 3px 0 0 3px ;
 }
+
+
 
 
 
