@@ -49,9 +49,10 @@ function mapError() {
   	//this is what goes on the infoWindow upon clicking on the marker
   	//or location name on sidebar
 function populateIW(marker, infowindow) {
-	var self = this;	
+	//var self = this;	
 	if (infowindow.marker != marker) {
 		infowindow.marker = marker;
+		infowindow.setContent('');
 		//infowindow.setContent(self.IWcontent);
 
 	//4square API data
@@ -64,29 +65,29 @@ function populateIW(marker, infowindow) {
 		+ -87.679598 + ','
 		+ '&client_id=' + clientId
 		+ '&client_secret=' + clientSecret
-		+ '&v=20170801' + '&query=' + this.title;
+		+ '&v=20170801' + '&query=' + marker.title;
 
 	//4square API	
 	$.getJSON(foursquareURL).done(function(marker) {
 		
 		var data = marker.response.venues[0];
-		self.name = data.name;
-		self.street = data.location.formattedAddress[0];
-		self.city = data.location.formattedAddress[1];
-		self.state = data.location.formattedAddress[2];
-		self.phone = data.contact.formattedPhone ? data.contact.formattedPhone : "Phone Number not found";
-		self.website = data.url ? data.url : "Website not found";
+		var name = data.name;
+		var street = data.location.formattedAddress[0];
+		var city = data.location.formattedAddress[1];
+		var state = data.location.formattedAddress[2];
+		var phone = data.contact.formattedPhone ? data.contact.formattedPhone : "Phone Number not found";
+		var website = data.url ? data.url : "Website not found";
 
-		self.IWcontent = 
+		var IWcontent = 
 		'<div>' + 
-		'<h6 class="IWtext">' + this.title + '</h6>';
-		'<p class="IWtext">' + self.street + '</p>';
-		'<p class="IWtext">' + self.city + '</p>';
-		'<p class="IWtext">' + self.state + '</p>';
-		'<p class="IWtext">' + self.phone + '</p>';
-		'<p class="IWtext">' + self.website + '</p>'; 
+		'<h6 class="IWtext">' + name + '</h6>';
+		'<p class="IWtext">' + street + '</p>';
+		'<p class="IWtext">' + city + '</p>';
+		'<p class="IWtext">' + state + '</p>';
+		'<p class="IWtext">' + phone + '</p>';
+		'<p class="IWtext">' + website + '</p>'; 
 		+ '</div>'; 
-		infowindow.setContent(self.IWcontent);
+		infowindow.setContent(IWcontent);
 		
 		}).fail(function() {
 			alert("Foursquare is dead, Jim!");
@@ -102,12 +103,12 @@ function populateIW(marker, infowindow) {
 
  
 var searchList = ko.computed(function() {
-  	//var self = this;
-  	var searchedLocation = ko.observable('');
+  	var self = this;
+  	this.searchedLocation = ko.observable('');
   	var match = [];
   	for (var i = 0; i <= markers.length; i++) {
   		var locationsList = markers[i];
-  		if (locationsList.title.toLowerCase().includes(searchedLocation().toLowerCase())) {
+  		if (locationsList.title.toLowerCase().includes(this.searchedLocation().toLowerCase())) {
   			match.push(locationsList);
   			match.style.visibility = 'visible';
   		} else {

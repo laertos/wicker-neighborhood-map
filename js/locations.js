@@ -5,7 +5,7 @@ var locations = [
 },
 
 {
-	title: "Big Star Taco",
+	title: "Big Star Taco Truck",
 	location: {lat: 41.9091585, lng: -87.67712519999999}
 },
 
@@ -15,12 +15,12 @@ var locations = [
 },
 
 {
-	title: "Parlor Pizza", 
+	title: "Parlor Pizza Bar", 
 	location: {lat: 41.9035235, lng: -87.6734467}
 },
 
 {
-	title: "Emporium Arcade bar",
+	title: "Emporium Arcade Bar",
 	location: {lat: 41.9064557, lng: -87.671848}
 },
 
