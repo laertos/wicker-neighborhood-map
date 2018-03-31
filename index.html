@@ -17,14 +17,17 @@
   			<div class="two"></div>
   			<div class="three"></div>
 		</div>
-		<h2>Wicker Park Map</h2>
+		<h2>Wicker Park, Chicago</h2>
 	</div>	
 	<div id="locations">
 		<input id="search-bar" type="text" placeholder="Search..." data-bind="textInput: searchedLocation">
+
 		<hr style="color: white; width: 84%; top:-15px; position: relative; margin: auto;">
-		<ul class="searchList" data-bind="foreach: searchList">
+
+		<ul class="searchListFilter" data-bind="foreach: searchListFilter">
 			<a href="#" class="locations" data-bind="text: title"></a>
 		</ul>
+
 	</div>	
 	<div id="map"></div>
 	<div class="footer">

@@ -4,6 +4,8 @@ var infowindow;
 var markers = [];
 var clientId;
 var clientSecret;
+var searchedLocation = ko.observable('');
+var match = [];
 
 function ViewModel() {
 	//var self = this;
@@ -20,7 +22,7 @@ function initMap() {
 
 	infowindow = new google.maps.InfoWindow();
 
-	for (var i = 0; i < locations.length; i++) {
+	for (var i = 0; i <= locations.length; i++) {
 	//setting the position and title based on location.js file	
 		var position = locations[i].location;
 		var title = locations[i].title;
@@ -36,7 +38,6 @@ function initMap() {
 	//create onClick even to open infoWindow for each marker
 		marker.addListener('click', function() {
 		populateIW(this, infowindow);
-		console.log(locations[i]);
 	});	
 	} 
   };
@@ -101,23 +102,19 @@ function populateIW(marker, infowindow) {
 		infowindow.marker = null;	
 			});
 	}
-};	
+};
 
  
-var searchList = ko.computed(function() {
-  	//var self = this;
-  	var searchedLocation = ko.observable('');
-  	var match = [];
-  	for (var i = 0; i <= markers.length; i++) {
+var searchListFilter = ko.computed(function() {
+ 	var i;
+  	//var match = [];
+  	for (i = 0; i <= markers.length - 1; i++) {
   		var locationsList = markers[i];
   		if (locationsList.title.toLowerCase().includes(searchedLocation().toLowerCase())) {
-  			match.push(locationsList);
-  			match.style.visibility = 'visible';
-  		} else {
-  			match.style.visibility = 'hidden';
+  			match.push(markers[i]);
   		}
+  		console.log(match);
   	}
-  	return match;
   }, this);
 
 };
