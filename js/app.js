@@ -18,7 +18,7 @@ function initMap() {
 
 	infowindow = new google.maps.InfoWindow();
 
-	for (var i = 0; i <= locations.length; i++) {
+	for (var i = 0; i <= locations.length - 1; i++) {
 	//setting the position and title based on location.js file	
 		var position = locations[i].location;
 		var title = locations[i].title;
