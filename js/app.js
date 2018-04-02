@@ -1,15 +1,11 @@
 //declare global vars
-var map;
+var map, google;
 var infowindow;
-var markers = [];
-var clientId;
-var clientSecret;
-var searchedLocation = ko.observable('');
-var match = [];
 
-function ViewModel() {
-	//var self = this;
-	//implementation of the map
+var markers = [];
+
+
+
 function initMap() {
 	//var self = this;
 	// Create the map centered in desired location and zoom
@@ -104,17 +100,20 @@ function populateIW(marker, infowindow) {
 	}
 };
 
- 
-var searchListFilter = ko.computed(function() {
- 	var i;
-  	//var match = [];
+function ViewModel() {
+	var self = this;
+
+	this.searchedLocation = ko.observable('');
+	this.matchList = ko.observableArray([]);
+	
+	this.searchListFilter = ko.computed(function() {
   	for (i = 0; i <= markers.length - 1; i++) {
-  		var locationsList = markers[i];
-  		if (locationsList.title.toLowerCase().includes(searchedLocation().toLowerCase())) {
-  			match.push(markers[i]);
+  		var locationsList = this.markers[i];
+  		if (locationsList.title.toLowerCase().includes(this.searchedLocation().toLowerCase())) {
+  			matchList.push(locationsList);
   		}
-  		console.log(match);
   	}
+  	return matchList;
   }, this);
 
 };
