@@ -1,10 +1,7 @@
 //declare global vars
-var map, google;
+var map;
 var infowindow;
-
 var markers = [];
-
-
 
 function initMap() {
 	//var self = this;
@@ -38,8 +35,6 @@ function initMap() {
 	} 
   };
  
-initMap();
-
 function mapError() {
   		alert("Google Maps is dead, Jim!");
   	}
@@ -100,26 +95,27 @@ function populateIW(marker, infowindow) {
 	}
 };
 
-function ViewModel() {
-	var self = this;
 
-	this.searchedLocation = ko.observable('');
-	this.matchList = ko.observableArray([]);
+function viewModel() {
 	
-	this.searchListFilter = ko.computed(function() {
-  	for (i = 0; i <= markers.length - 1; i++) {
-  		var locationsList = this.markers[i];
-  		if (locationsList.title.toLowerCase().includes(this.searchedLocation().toLowerCase())) {
-  			matchList.push(locationsList);
-  		}
-  	}
-  	return matchList;
-  }, this);
+	var displayList = ko.observableArray([markers]);
+	var searchedLocation = ko.observable('');
+	
+	var searchListFilter = function(value) {
+		viewModel.markers.removeAll();
 
+  	for (i = 0; i < markers.length; i++) {
+  		if (markers[i].title.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+  			viewModel.markers.push(markers[i]);
+  		}
+  	 }
+  }
+viewModel.searchedLocation.subscribe(viewModel.searchListFilter);
 };
 
+
 function runMyApp() {
-    ko.applyBindings(new ViewModel());
+    ko.applyBindings(new viewModel());
 }
 
 

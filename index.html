@@ -20,11 +20,11 @@
 		<h2>Wicker Park, Chicago</h2>
 	</div>	
 	<div id="locations">
-		<input id="search-bar" type="text" placeholder="Search..." data-bind="textInput: searchedLocation">
+		<input id="search-bar" type="search" placeholder="Search..." data-bind="value: searchedLocation, valueUpdate: 'keyup'" autocomplete="off">
 
 		<hr style="color: white; width: 84%; top:-15px; position: relative; margin: auto;">
 
-		<ul class="searchListFilter" data-bind="foreach: searchListFilter">
+		<ul class="displayList" data-bind="foreach: displayList">
 			<a href="#" class="locations" data-bind="text: title"></a>
 		</ul>
 
