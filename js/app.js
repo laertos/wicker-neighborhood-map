@@ -1,9 +1,8 @@
 //declare global vars
-var map;
-var infowindow;
+var map, infowindow;
 var markers = [];
 
-function initMap() {
+function initApp() {
 	//var self = this;
 	// Create the map centered in desired location and zoom
 	map = new google.maps.Map(document.getElementById('map'), {
@@ -15,7 +14,7 @@ function initMap() {
 
 	infowindow = new google.maps.InfoWindow();
 
-	for (var i = 0; i <= locations.length - 1; i++) {
+	for (var i = 0; i < locations.length ; i++) {
 	//setting the position and title based on location.js file	
 		var position = locations[i].location;
 		var title = locations[i].title;
@@ -32,8 +31,9 @@ function initMap() {
 		marker.addListener('click', function() {
 		populateIW(this, infowindow);
 	});	
-	} 
-  };
+	}
+	
+  
  
 function mapError() {
   		alert("Google Maps is dead, Jim!");
@@ -93,30 +93,30 @@ function populateIW(marker, infowindow) {
 		infowindow.marker = null;	
 			});
 	}
-};
+}
 
 
 function viewModel() {
 	
-	var displayList = ko.observableArray([markers]);
-	var searchedLocation = ko.observable('');
+	 displayList = ko.observableArray(markers);
+	 searchedLocation = ko.observable('');
 	
-	var searchListFilter = function(value) {
-		viewModel.markers.removeAll();
+	 var search = function(value) {
+		markers.removeAll();
 
   	for (i = 0; i < markers.length; i++) {
   		if (markers[i].title.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
-  			viewModel.markers.push(markers[i]);
+  			markers.push(markers[i]);
   		}
   	 }
-  }
-viewModel.searchedLocation.subscribe(viewModel.searchListFilter);
-};
-
-
-function runMyApp() {
-    ko.applyBindings(new viewModel());
+  };
+searchedLocation.subscribe(search);
 }
+
+ko.applyBindings(new viewModel()); 
+}
+
+
 
 
 
