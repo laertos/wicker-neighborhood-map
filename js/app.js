@@ -18,8 +18,8 @@ function runApp() {
 		for (var i = 0; i < locations.length ; i++) {
 
 			//setting the position and title based on location.js file	
-			var position = locations[i].location;
-			var title = locations[i].title;
+			position = locations[i].location;
+			title = locations[i].title;
 
 			//creating marker	
 			var marker = new google.maps.Marker({
@@ -109,7 +109,7 @@ function runApp() {
 		search: function(value) {
 			viewModel.displayList.removeAll();
 
-  			for ( var i in markers ) {
+  			for ( var i in markers) {
   				if (markers[i].title.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
   					viewModel.displayList.push(markers[i]);
   				}
