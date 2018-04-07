@@ -1,8 +1,9 @@
 //declare global vars
 var map;
-var	markers = [];
 
 function runApp() {
+
+	var markers = [];
 
 	function initMap() {
 		// Create the map centered in desired location and zoom
@@ -96,12 +97,12 @@ function runApp() {
 			infowindow.open(map, marker);
 			//makes sure marker property is cleared when infowindow is closed
 			infowindow.addListener('closeclick', function() {
-			infowindow.marker = null;	
+			infowindow.marker = null;
 				});
 		}
 	}
 
-	//use a global var to create location filter
+	//viewModel object
 	viewModel = {
 		//displayList: markers,	
 		displayList: ko.observableArray(markers),
@@ -118,7 +119,7 @@ function runApp() {
 	}
 	viewModel.searchedLocation.subscribe(viewModel.search);
 
-	ko.applyBindings(viewModel); 	
+	ko.applyBindings(viewModel);
 };
 
 
