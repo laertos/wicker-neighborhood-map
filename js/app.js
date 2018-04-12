@@ -102,25 +102,34 @@ function runApp() {
 		}
 	}
 
-	//viewModel object
-	viewModel = {
-		//displayList: markers,	
-		displayList: ko.observableArray(markers),
-		searchedLocation: ko.observable(''),
-		search: function(value) {
-			viewModel.displayList.removeAll();
-
-  			for ( var i in markers) {
-  				if (markers[i].title.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
-  					viewModel.displayList.push(markers[i]);
-  				}
-  	 		}
-    	}
+	var Location = function(data) {
+		this.title = ko.observable(data.title);
+		this.lat = ko.observable(data.location.lat);
+  		this.lng = ko.observable(data.location.lng);
 	}
-	viewModel.searchedLocation.subscribe(viewModel.search);
 
-	ko.applyBindings(viewModel);
+	var viewModel = function() {
+		var self= this;
+			self.displayList = ko.observableArray([]);
+			self.searchedLocation = ko.observable('');
+
+			locations.forEach(function(item) {
+				self.displayList.push(new Location(item));	
+			});
+			self.currentLocation = ko.observable(self.displayList()[0]);
+			self.filtered = ko.computed(function() {
+				if (!self.searchedLocation()) {
+					return self.displayList();
+				} else {
+					return self.displayList().filter(location => location.title().toLowerCase().indexOf(
+						self.searchedLocation().toLowerCase()) > -1);
+				}
+			});
+	}
+	ko.applyBindings(new viewModel());
+
 };
+
 
 
 
