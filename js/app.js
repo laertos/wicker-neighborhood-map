@@ -15,19 +15,22 @@ function runApp() {
 		});
 
 		infowindow = new google.maps.InfoWindow();
+	 	defaultIcon = makeMarkerIcon('00113D');
+		highlightedIcon = makeMarkerIcon('FFFF00');
 
-		for (var i = 0; i < locations.length ; i++) {
+		for (var i = 0; i < locations.length; i++) {
 
 			//setting the position and title based on location.js file	
 			position = locations[i].location;
 			title = locations[i].title;
 
 			//creating marker	
-			var marker = new google.maps.Marker({
-				map: map,
-				position: position,
-				title: title,
-				animation: google.maps.Animation.DROP,
+			marker = new google.maps.Marker({
+			map: map,
+			position: position,
+			title: title,
+			animation: google.maps.Animation.DROP,
+			icon: defaultIcon
 			});
 
 			//push marker to array
@@ -35,20 +38,31 @@ function runApp() {
 			//create onClick even to open infoWindow for each marker
 			marker.addListener('click', function() {
 				populateIW(this, infowindow);
-			});	
+			});
+			marker.addListener('mouseover', function() {
+            this.setIcon(highlightedIcon);
+          });
+          	marker.addListener('mouseout', function() {
+            this.setIcon(defaultIcon);
+          });	
 		}
 	}
-
 	initMap();
 
-	 
-	function mapError() {
-	  		alert("Google Maps is dead, Jim!");
-	}
+	function makeMarkerIcon(markerColor) {
+        var markerImage = new google.maps.MarkerImage(
+          'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +
+          '|40|_|%E2%80%A2',
+          new google.maps.Size(21, 34),
+          new google.maps.Point(0, 0),
+          new google.maps.Point(10, 34),
+          new google.maps.Size(21,34));
+        return markerImage;
+      }
 
 	//this is what goes on the infoWindow upon clicking on the marker or location name on sidebar
 	function populateIW(marker, infowindow) {
-			
+		
 		if (infowindow.marker != marker) {
 			infowindow.marker = marker;
 			infowindow.setContent('');
@@ -102,32 +116,35 @@ function runApp() {
 		}
 	}
 
-	var Location = function(data) {
+	var Place = function(data) {
 		this.title = ko.observable(data.title);
 		this.lat = ko.observable(data.location.lat);
   		this.lng = ko.observable(data.location.lng);
-	}
+	};
 
 	var viewModel = function() {
-		var self= this;
-			self.displayList = ko.observableArray([]);
-			self.searchedLocation = ko.observable('');
+		var self = this;
+		self.displayList = ko.observableArray([]);
+		self.searchedLocation = ko.observable('');
 
-			locations.forEach(function(item) {
-				self.displayList.push(new Location(item));	
-			});
-			self.currentLocation = ko.observable(self.displayList()[0]);
-			self.filtered = ko.computed(function() {
-				if (!self.searchedLocation()) {
-					return self.displayList();
-				} else {
-					return self.displayList().filter(location => location.title().toLowerCase().indexOf(
-						self.searchedLocation().toLowerCase()) > -1);
-				}
-			});
+		locations.forEach(function(item) {
+			self.displayList.push(new Place(item));	
+		});
+		self.currentLocation = ko.observable(self.displayList()[0]);
+		self.filtered = ko.computed(function() {
+			if (!self.searchedLocation()) {
+				return self.displayList();
+			} else {
+				return self.displayList().filter(place => place.title().toLowerCase().indexOf(
+					self.searchedLocation().toLowerCase()) > -1);
+			}
+		});
 	}
 	ko.applyBindings(new viewModel());
 
+	function mapError() {
+	  		alert("Google Maps is dead, Jim!");
+	}
 };
 
 
