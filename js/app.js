@@ -1,10 +1,11 @@
 //declare global vars
 var map;
+var markers = [];
+
 
 function runApp() {
 
-	var markers = [];
-
+	
 	function initMap() {
 		// Create the map centered in desired location and zoom
 		map = new google.maps.Map(document.getElementById('map'), {
@@ -117,9 +118,9 @@ function runApp() {
 	}
 
 	var Place = function(data) {
-		this.title = ko.observable(data.title);
-		this.lat = ko.observable(data.location.lat);
-  		this.lng = ko.observable(data.location.lng);
+		this.title = data.title;
+		this.lat = data.location.lat;
+  		this.lng = data.location.lng;
 	};
 
 	var viewModel = function() {
@@ -135,7 +136,7 @@ function runApp() {
 			if (!self.searchedLocation()) {
 				return self.displayList();
 			} else {
-				return self.displayList().filter(place => place.title().toLowerCase().indexOf(
+				return self.displayList().filter(place => place.title.toLowerCase().indexOf(
 					self.searchedLocation().toLowerCase()) > -1);
 			}
 		});
@@ -146,6 +147,7 @@ function runApp() {
 	  		alert("Google Maps is dead, Jim!");
 	}
 };
+
 
 
 
