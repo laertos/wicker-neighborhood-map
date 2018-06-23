@@ -24,8 +24,8 @@
 
 		<hr style="color: white; width: 84%; top:-15px; position: relative; margin: auto;">
 
-		<ul class="displayList" data-bind="foreach: filtered">
-			<a href="#" class="locations" data-bind="text: title"></a>
+		<ul class="displayList" data-bind="foreach: displayList">
+			<a href="#" class="locations" data-bind="text: title, click: $parent.showLocation, visible: show"></a>
 		</ul>
 
 	</div>	
@@ -40,6 +40,6 @@
 <script src=js/locations.js></script>
 <script src=js/app.js></script>
 <script async defer 
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAESObmvV2Yy9qPUAWLSDLPEqtBORYn1SU&v=3&callback=runApp"></script>
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAESObmvV2Yy9qPUAWLSDLPEqtBORYn1SU&v=3&callback=initMap"></script>
 </body>
 </html>
