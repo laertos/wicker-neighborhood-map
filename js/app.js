@@ -1,4 +1,5 @@
 //declare global vars
+var appViewModel;
 var map;
 //create array to list markers in map
 var markers = [];
@@ -16,11 +17,11 @@ function initMap() {
  	defaultIcon = makeMarkerIcon('00113D');
 	highlightedIcon = makeMarkerIcon('FFFF00');
 
-	for (var i = 0; i < locations.length; i++) {
+	for (var j = 0; j < locations.length; j++) {
 
 		//setting the position and title based on location.js file	
-		position = locations[i].location;
-		title = locations[i].title;
+		position = locations[j].location;
+		title = locations[j].title;
 
 		//creating marker	
 		marker = new google.maps.Marker({
@@ -33,6 +34,8 @@ function initMap() {
 
 		//push marker to array
 		markers.push(marker);
+
+		appViewModel.displayList()[j].marker = marker;
 		//create onClick even to open infoWindow for each marker
 		marker.addListener('click', function() {
 			populateIW(this, infowindow);
@@ -161,8 +164,9 @@ var viewModel = function() {
 		google.maps.event.trigger(locations.marker, "click");
 		};
 };
+appViewModel = new viewModel();
 
-ko.applyBindings(new viewModel());
+ko.applyBindings(appViewModel);
 
 
 
