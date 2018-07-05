@@ -106,9 +106,9 @@ input[type=search] {
 	display: block;
 	color: white;
 	font-size: 15px;
-	/*border: 1px solid black;*/
 	height: 30px;
-	text-decoration: none; 
+	text-decoration: none;
+  border: 1px solid black; 
 }
 
 .locations:hover {

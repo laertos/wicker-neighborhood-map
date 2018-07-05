@@ -1,4 +1,5 @@
 var locations = [
+
 {
 	title: "Small Cheval",
 	location: {lat: 41.9141613802915, lng: -87.68013926970849}
@@ -52,6 +53,7 @@ var locations = [
 	title: "Reckless Records",
 	location: {lat: 41.9070939, lng: -87.6717903}
 },
+
 ]
 
 
