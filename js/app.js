@@ -17,7 +17,7 @@ function initMap() {
  	defaultIcon = makeMarkerIcon('00113D');
 	highlightedIcon = makeMarkerIcon('FFFF00');
 
-	for (var j = 0; j < locations.length; j++) {
+	for (j = 0; j < locations.length; j++) {
 
 		//setting the position and title based on location.js file	
 		position = locations[j].location;
@@ -68,6 +68,17 @@ function initMap() {
 			infowindow.setContent('');
 			//infowindow.setContent(self.IWcontent);
 
+			//animation 
+			marker.setAnimation(google.maps.Animation.BOUNCE);
+			setTimeout(function() {
+				marker.setAnimation(null);
+			}, 2000);
+			infowindow.open(map, marker);
+			//clear marker property when infowindow is closed
+			infowindow.addListener("closeclick", function() {
+				infowindow.setMarker = null;
+			});
+
 			//4square API data
 			clientId = "NMHLYWGLLNXPUVP1AA4GTGVCWL51AVULQYXW5RSSCJJ5CHZQ";
 			clientSecret = "L2WDZZINOWDJVIAYWTE2YIM1SB1VINNTWZP3EIM4SIAWPOOF";
@@ -96,8 +107,6 @@ function initMap() {
 					'<div>' + 
 					'<h4 class="IWtext">' + name + '</h4>' +
 					'<p class="IWtext">' + street + '</p>' +
-					//'<p class="IWtext">' + city + '</p>' +
-					//'<p class="IWtext">' + state + '</p>' +
 					'<p class="IWtext">' + phone + '</p>' +
 					'<p class="IWtext">' + website + '</p>' + 
 					'</div>';

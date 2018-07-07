@@ -57,29 +57,3 @@ var locations = [
 ]
 
 
-/*
-
-	var styles = [
-	{
-		featureType: 'water',
-		stylers: [
-		    {color: #19a0d8}
-		]
-	},{
-		featureType: 'road.highway',
-        elementType: 'geometry.stroke',
-        stylers: [
-            { color: '#efe9e4' },
-            { lightness: -40 }
-        ]
-	},{
-		featureType: 'poi',
-        elementType: 'geometry',
-        stylers: [
-            { visibility: 'on' },
-            { color: '#f0e4d3' }
-        ]
-	}	
-	];
-	https://sjobs.brassring.com/TGWebHost/jobdetails.aspx?SID=%5eKC1ScvlUoJ9GPhqzn0Bb2_slp_rhc_iDqG9A_slp_rhc_jdY4RRySEJgpoTukVf0GfEHCij0Tk%2fI12Pn&jobId=3391955&type=search&JobReqLang=1&recordstart=1&JobSiteId=5361&JobSiteInfo=3391955_5361&GQId=0
-*/
